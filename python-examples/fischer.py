@@ -9,6 +9,7 @@
 import gaugette.ssd1306
 import time
 import sys
+import random
 from PIL import Image
 
 # Sets up our pins again
@@ -30,32 +31,43 @@ image_bw = image_r.convert("1")
 
 var1 = True
 
+def printme(text, offset, init="", size=1):
+    printed = init
+    for character in list(text):
+        #print(character)
+        printed += character
+        led.draw_text2(0,offset,printed,size)
+        led.display()
+        time.sleep(random.uniform(0, 0.5))
+    return
+
+
 while True:
 
     # write the current time to the display on every other cycle
     if offset == 0:
         if var1:
             text1 = "frisch,"
-            led.draw_text2(0,0,text1,1)
-            led.display()
-            time.sleep(1)
-            text2 = "frisch, frischer,"
-            led.draw_text2(0,0,text2,1)
-            led.display()
-            time.sleep(1)
-            text3 = "Fischer !!!"
-            led.draw_text2(0,16,text3,2)
+            printme(text1, 0)
+            #led.draw_text2(0,0,text1,1)
+            #led.display()
+            #time.sleep(1)
+            text2 = " frischer,"
+            printme(text2, 0, text1)
+            #led.draw_text2(0,0,text2,1)
+            #led.display()
+            #time.sleep(1)
+            text3 = "Fischer !"
+            printme(text3, 16, size=2)
         else:
-            text1 = "Immer frischer"
-            led.draw_text2(0,0,text1,1)
-            led.display()
-            time.sleep(1)
-            text2 = "Immer frischer beim"
-            led.draw_text2(0,0,text2,1)
-            led.display()
-            time.sleep(1)
-            text3 = "Fischer !!!"
-            led.draw_text2(0,16,text3,2)
+            text1 = "Immer"
+            printme(text1, 0)
+            text2 = " frischer"
+            printme(text2, 0, text1)
+            text3 = " beim"
+            printme(text3, 0, text1 + text2)
+            text4 = "Fischer !"
+            printme(text4, 16,size=2)
             
         led.display()
         
